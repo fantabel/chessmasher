@@ -20,7 +20,7 @@ public class Board {
 	public Board() {
 		whitePawns = BitBoardUtil.WHITE_PAWN_STARTING_POSITION;
 		whiteRooks = BitBoardUtil.WHITE_ROOK_STATRING_POSITION;
-		whiteKnights = BitBoardUtil.WHITE_ROOK_STATRING_POSITION;
+		whiteKnights = BitBoardUtil.WHITE_KNIGHT_STARTING_POSITION;
 		whiteBishops = BitBoardUtil.WHITE_BISHOP_STARTING_POSITION;
 		whiteQueen = BitBoardUtil.WHITE_QUEEN_STARTING_POSITION;
 		whiteKing = BitBoardUtil.WHITE_KING_STARTING_POSITION;
@@ -68,13 +68,56 @@ public class Board {
 			int row = ((64 - i) / 8);
 			String color = (i / 8) % 2 == 0 ? " " : ".";
 			String noColor = (i / 8) % 2 == 0 ? "." : " ";
+			
 			if (i % 8 == 0) {
 				sb.append(row);
 				sb.append(" ");
 			}
 
 			sb.append("|");
-			sb.append(i % 2 == 0 ? color : noColor);
+			
+			long currentPos = 0x8000000000000000L >>> i;
+			if ((currentPos & whitePawns) != 0) {
+				sb.append("P");
+			
+			} else if ((currentPos & whiteRooks) != 0) {
+				sb.append("R");
+			
+			} else if ((currentPos & whiteKnights) != 0) {
+				sb.append("N");
+			
+			} else if ((currentPos & whiteBishops) != 0) {
+				sb.append("B");
+			
+			} else if ((currentPos & whiteQueen) != 0) {
+				sb.append("Q");
+			
+			} else if ((currentPos & whiteKing) != 0) {
+				sb.append("K");
+			
+			} else if ((currentPos & blackPawns) != 0) {
+				sb.append("p");
+			
+			} else if ((currentPos & blackRooks) != 0) {
+				sb.append("r");
+			
+			} else if ((currentPos & blackKnights) != 0) {
+				sb.append("n");
+			
+			} else if ((currentPos & blackBishops) != 0) {
+				sb.append("b");
+			
+			} else if ((currentPos & blackQueen) != 0) {
+				sb.append("q");
+			
+			} else if ((currentPos & blackKing) != 0) {
+				sb.append("k");
+			
+			} else {
+				sb.append(i % 2 == 0 ? color : noColor);
+			
+			}
+			
 			sb.append(i % 8 == 7 ? "|\n  +-+-+-+-+-+-+-+-+\n" : "");
 		}
 		
